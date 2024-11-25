@@ -6,8 +6,8 @@ class Settings(BaseSettings):
     HOST: str = "0.0.0.0"
     RELOAD: bool = False
     GOOGLE_CLIENT_ID: str = "YOUR_GOOGLE_CLIENT_ID"
-    JWT_PRIVATE_KEY: str = "jwt-private"
-    JWT_PLUBLIC_KEY: str = "jwt-public"
+    JWT_PRIVATE_KEY: str = "jwt-key"
+    JWT_PLUBLIC_KEY: str = "jwt-key"
     WORKERS: int = 2
     USERS_MS_URL: str = "http://localhost:8000/v1"
     MONGO_DB_URL: str = "mongodb://localhost:27017"
