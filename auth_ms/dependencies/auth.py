@@ -31,13 +31,19 @@ def validate_google_token(
     try:
         # Specify the CLIENT_ID of the app that accesses the backend:
         idinfo = id_token.verify_oauth2_token(
-            authorization, requests.Request(), Settings().GOOGLE_CLIENT_ID
+            authorization.credentials,
+            requests.Request(),
+            Settings().GOOGLE_CLIENT_ID,
         )
+
         # ID token is valid. Get the user's Google Account ID from the decoded token.
         userid = idinfo["sub"]
         useremail = idinfo["email"]
 
-    except ValueError:
-        raise HTTPException(status_code=401, detail="Invalid token")
+    except Exception as e:
+        if isinstance(e, ValueError):
+            raise HTTPException(status_code=401, detail="Invalid token")
+        else:
+            raise HTTPException(status_code=401, detail="Unable to validate token")
 
     request.state.user = {"id": userid, "email": useremail}
